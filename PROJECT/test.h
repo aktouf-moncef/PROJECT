@@ -1,5 +1,7 @@
 #pragma once
-ref class test
+ class test
 {
+	 private:
+		 int x;
 };
 
