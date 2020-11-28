@@ -114,16 +114,45 @@
     <ClInclude Include="client.h" />
     <ClInclude Include="commande.h" />
     <ClInclude Include="Facture.h" />
+    <ClInclude Include="Gclient.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="Gcommandes.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="GesPersonnel.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="Gstat.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="MainForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="personnel.h" />
     <ClInclude Include="responsable.h" />
+    <ClInclude Include="Secondform.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="Stock.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="client.cpp" />
     <ClCompile Include="commande.cpp" />
     <ClCompile Include="Facture.cpp" />
+    <ClCompile Include="Gclient.cpp" />
+    <ClCompile Include="Gcommandes.cpp" />
+    <ClCompile Include="GesPersonnel.cpp" />
+    <ClCompile Include="Gstat.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="personnel.cpp" />
     <ClCompile Include="responsable.cpp" />
+    <ClCompile Include="SecondForm.cpp" />
+    <ClCompile Include="Stock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -131,6 +160,29 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Gclient.resx">
+      <DependentUpon>Gclient.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gcommandes.resx">
+      <DependentUpon>Gcommandes.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GesPersonnel.resx">
+      <DependentUpon>GesPersonnel.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gstat.resx">
+      <DependentUpon>Gstat.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Secondform.resx">
+      <DependentUpon>Secondform.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stock.resx">
+      <DependentUpon>Stock.h</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
