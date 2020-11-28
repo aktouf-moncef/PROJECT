@@ -1,5 +1,5 @@
 #pragma once
-
+using namespace System::Data::SqlClient;
 namespace PROJECT {
 
 	using namespace System;
@@ -47,6 +47,12 @@ namespace PROJECT {
 	private: System::Windows::Forms::TextBox^ textBox3;
 	private: System::Windows::Forms::TextBox^ textBox2;
 	private: System::Windows::Forms::TextBox^ textBox1;
+
+
+
+
+
+
 	private: System::Windows::Forms::Label^ label7;
 	private: System::Windows::Forms::Label^ label6;
 	private: System::Windows::Forms::Label^ label5;
@@ -58,12 +64,15 @@ namespace PROJECT {
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::Button^ button3;
 	private: System::Windows::Forms::Button^ button4;
+	private: System::Windows::Forms::BindingSource^ bindingSource1;
+	private: System::Windows::Forms::DataGridView^ dataGridView2;
+	private: System::ComponentModel::IContainer^ components;
 
 	private:
 		/// <summary>
 		/// Variable nécessaire au concepteur.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -72,6 +81,7 @@ namespace PROJECT {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Gclient::typeid));
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
 			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
@@ -92,7 +102,11 @@ namespace PROJECT {
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->bindingSource1 = (gcnew System::Windows::Forms::BindingSource(this->components));
+			this->dataGridView2 = (gcnew System::Windows::Forms::DataGridView());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// dataGridView1
@@ -239,6 +253,7 @@ namespace PROJECT {
 			this->button1->TabIndex = 42;
 			this->button1->Text = L"Ajouter";
 			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &Gclient::button1_Click);
 			// 
 			// button2
 			// 
@@ -261,6 +276,7 @@ namespace PROJECT {
 			this->button3->TabIndex = 44;
 			this->button3->Text = L"Supprimer";
 			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &Gclient::button3_Click);
 			// 
 			// button4
 			// 
@@ -272,6 +288,15 @@ namespace PROJECT {
 			this->button4->TabIndex = 45;
 			this->button4->Text = L"Afficher";
 			this->button4->UseVisualStyleBackColor = true;
+			this->button4->Click += gcnew System::EventHandler(this, &Gclient::button4_Click);
+			// 
+			// dataGridView2
+			// 
+			this->dataGridView2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView2->Location = System::Drawing::Point(289, 12);
+			this->dataGridView2->Name = L"dataGridView2";
+			this->dataGridView2->Size = System::Drawing::Size(522, 394);
+			this->dataGridView2->TabIndex = 46;
 			// 
 			// Gclient
 			// 
@@ -279,6 +304,7 @@ namespace PROJECT {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(1041, 524);
+			this->Controls->Add(this->dataGridView2);
 			this->Controls->Add(this->button4);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->button2);
@@ -303,10 +329,60 @@ namespace PROJECT {
 			this->Name = L"Gclient";
 			this->Text = L"Gclient";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-	};
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ constring = "Data Source=(local);Initial Catalog=Projet;Integrated Security=True";
+		SqlConnection^ condatabase = gcnew SqlConnection(constring);
+		String^ nom = textBox2->Text;
+		String^ prenom = textBox3->Text;
+		String^ date = Convert::ToDateTime(textBox4->Text).ToString("yyyy-MM-dd");
+		String^ date2 = Convert::ToDateTime(textBox5->Text).ToString("dd-MM-yyyy");
+		String^ adresseL = textBox6->Text;
+		String^ adresseF = textBox7->Text;
+	
+
+		SqlCommand^ cmdDataBase = gcnew SqlCommand("INSERT INTO client (Nom_client, Prenom_client , Date_De_Naissaince , Date_Premier_Achat, Adresse_Livraison, Adresse_Facturation ) values('" + nom + "','" + prenom + "','" + date + "','" + date2 + "','" + adresseF + "','" + adresseL + "');", condatabase);
+		SqlDataReader^ myReader;
+		try {
+
+			condatabase->Open();
+			myReader = cmdDataBase->ExecuteReader();
+			MessageBox::Show("Article enregistré :'D");
+		}
+		catch (Exception^ ex) {
+
+			MessageBox::Show(ex->Message);
+
+		}
+	}
+private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
+	String^ constring = "Data Source=(local);Initial Catalog=Projet;Integrated Security=True";
+	SqlConnection^ conDataBase = gcnew SqlConnection(constring);
+	SqlDataAdapter^ adapter = gcnew SqlDataAdapter("SELECT * FROM client", conDataBase);
+	DataTable^ data = gcnew DataTable();
+	dataGridView2->Hide();
+	dataGridView1->Show();
+	adapter->Fill(data);
+	bindingSource1->DataSource = data;
+	dataGridView1->DataSource = bindingSource1;
+}
+private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+	String^ constring = "Data Source=(local);Initial Catalog=Projet;Integrated Security=True";
+	SqlConnection^ conDataBase = gcnew SqlConnection(constring);
+
+	String^ ID = textBox1->Text;
+	SqlCommand^ cmdDataBase = gcnew SqlCommand("DELETE FROM client WHERE Num_client = '" + ID + "' ", conDataBase);
+
+	conDataBase->Open();
+	SqlDataReader^ myReader = cmdDataBase->ExecuteReader();
+	MessageBox::Show("Client supprimé :'D");
+	conDataBase->Close();
+}
+};
 }
